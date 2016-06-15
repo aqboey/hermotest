@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+        <meta name="viewpoint" content="width=device-width initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" /> 
+        <link rel="stylesheet" type="text/css" href="css/style.css" /> 
+        <link rel="stylesheet" type="text/css" href="css/component.css" />
+        <script src="js/modernizr.custom.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="js/jquery.cbpFWSlider.min.js"></script>
+    </head>
+<body>
+
+<div id="myBannerList"></div>
+<div id="myProductList"></div>
+<script>
+
+var xmlhttpBanner = new XMLHttpRequest();
+var urlBanner = "https://www.hermo.my/test/api.html?list=banner";
+
+xmlhttpBanner.onreadystatechange=function() {
+    if (xmlhttpBanner.readyState == 4 && xmlhttpBanner.status == 200) {
+        myBannerData(xmlhttpBanner.responseText);
+    }
+}
+xmlhttpBanner.open("GET", urlBanner, true);
+xmlhttpBanner.send();
+
+function myBannerData(response) {
+    var arr = JSON.parse(response);
+    var i;
+    var out = "<div id='cbp-fwslider' class='cbp-fwslider'><ul>";
+
+    for(i = 0; i < arr.items.length; i++) {
+        out += "<li><a href='http://hermo.my/" + arr.items[i].url + "'><img src='" + arr.items[i].image + "' alt='" + arr.items[i].caption + "' /></a></li>";
+    }   
+
+    out += "</ul></div>";
+
+
+
+    document.getElementById("myBannerList").innerHTML = out;
+        $( function() {
+                $( '#cbp-fwslider' ).cbpFWSlider();
+            } );
+
+}
+
+
+
+
+
+//product here
+
+var xmlhttp = new XMLHttpRequest();
+var url = "https://www.hermo.my/test/api.html?list=best-selling";
+
+xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        myFunction(xmlhttp.responseText);
+    }
+}
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+function myFunction(response) {
+    var arr = JSON.parse(response);
+    var i;
+    var out = "<section><div class='flex'>";
+
+    for(i = 0; i < arr.items.length; i++) {
+
+        out += "<div class='text-center shop-item'><div class='product-tag-holder'><span class='info-circle'>" + 
+        arr.items[i].discount_rate + "%</span></div><a href='http://hermo.my" + arr.items[i].url + "' >" + 
+        "<img class='img_wrapper' src='" + arr.items[i].images + "' alt='images'></a>" +
+        "<div style='padding: 10px;'> <strong class='brand_name'> <a href='http://hermo.my" +  arr.items[i].brand.url + "'>" + arr.items[i].brand.name + 
+        "</a></strong><p><a href='http://hermo.my" + arr.items[i].url + "'>" + arr.items[i].name + "</a></p></div>" +
+        "<div class='m-b-1'><strong>RM " + Number(arr.items[i].selling_price).toFixed(2) + "</strong><div><s class='small text-muted'>RM " + 
+        Number(arr.items[i].retail_price).toFixed(2) + "</s></div></div>" + "<a href='http://hermo.my" + arr.items[i].url + 
+        "' class='btn btn-buy-now btn-sm'>SHOP NOW</a></div>";
+    }
+
+    out += "</div></section>";
+    document.getElementById("myProductList").innerHTML = out;
+}
+</script>
+
+</body>
+</html>
+

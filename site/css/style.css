@@ -1,0 +1,91 @@
+html, body, ul, ol {
+  margin: 0; padding: 0px;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+a {
+  color: #000000;
+  text-decoration: none;
+}
+a:hover,
+a:focus {
+  color: #000000;
+  text-decoration: none;
+}
+a:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+html, body {
+  font-size: 16px;
+  letter-spacing: 0.1px;
+}
+
+.flex{
+	display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    max-width: 1390px;
+    margin: 0 auto;
+}
+
+.shop-item {
+    background: #FFF;
+    width: 300px;
+    margin: 5px;
+    padding-bottom: 20px;
+ }
+
+.img_wrapper {
+    display: block;
+    position: relative;
+    padding: 15px 20px 5px;
+    width: 100%;
+}
+
+.brand_name{
+	display: block;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.m-b-1{
+	margin-bottom: 1rem !important;
+}
+
+.btn-buy-now{
+	background: black;
+    color: #FFF !important;
+    transition: all .2s ease-in-out;
+    margin-bottom:20px;
+}
+
+.product-tag-holder{
+	position: absolute;
+    z-index: 4;
+}
+
+.info-circle {
+    width: 3.125rem;
+    height: 3.125rem;
+    display: block;
+    line-height: 3.125rem;
+    background: #ee3338;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-box-shadow: 3px 3px 6px 0px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: 3px 3px 6px 0px rgba(50, 50, 50, 0.5);
+    box-shadow: 3px 3px 6px 0px rgba(50, 50, 50, 0.5);
+    margin-bottom: 15px;
+}
