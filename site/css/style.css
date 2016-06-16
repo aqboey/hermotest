@@ -89,3 +89,13 @@ html, body {
     box-shadow: 3px 3px 6px 0px rgba(50, 50, 50, 0.5);
     margin-bottom: 15px;
 }
+
+.sortplace {
+    margin-bottom: 0px;
+    right:60px;
+
+}
+
+.sort-title{
+    margin-right: 10px;
+}

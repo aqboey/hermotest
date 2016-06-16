@@ -16,6 +16,7 @@
 
 <div id="myBannerList"></div>
 <div id="myProductList"></div>
+<!-- <button onclick="sorting()"> Sort By Selling Price Ascending </button>    -->
 <script>
 
 var xmlhttpBanner = new XMLHttpRequest();
@@ -29,6 +30,26 @@ xmlhttpBanner.onreadystatechange=function() {
 xmlhttpBanner.open("GET", urlBanner, true);
 xmlhttpBanner.send();
 
+
+//sorting
+function sortJson(arr, prop, dir) {
+    return [].slice.call(arr).sort(function(a,b) {
+
+       var propA,propB;
+
+        propA = a[prop];
+        propB = b[prop];
+
+        if (dir=='asc') {
+            return propA - propB;
+        } else {
+            return propB - propA;
+        }
+
+    });
+}
+
+//slider
 function myBannerData(response) {
     var arr = JSON.parse(response);
     var i;
@@ -49,44 +70,45 @@ function myBannerData(response) {
 
 }
 
-
-
-
-
 //product here
 
-var xmlhttp = new XMLHttpRequest();
+var xmlhttp1 = new XMLHttpRequest();
 var url = "https://www.hermo.my/test/api.html?list=best-selling";
-
-xmlhttp.onreadystatechange=function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        myFunction(xmlhttp.responseText);
+xmlhttp1.onreadystatechange=function() {
+    if (xmlhttp1.readyState == 4 && xmlhttp1.status == 200) {
+        sorting(xmlhttp1.responseText,'asc');
     }
 }
-xmlhttp.open("GET", url, true);
-xmlhttp.send();
+xmlhttp1.open("GET", url, true);
+xmlhttp1.send();
 
-function myFunction(response) {
-    var arr = JSON.parse(response);
+function sorting(response,prop){
+
+	var arr = JSON.parse(response);
     var i;
-    var out = "<div class='input-group sort-filter pull-right sortplace'><span class='sort-title'><strong>Sort By</strong></span><select class='btn' name='sort' onchange='if (this.value) window.location.href=this.value'><option  value='index1.html'>Selling Price (Low > High)</option><option value='index2.html'>Selling Price (High > Low)</option><option value='index3.html'>Discount Rate (Low > High)</option><option value='index4.html'>Discount Rate (High > Low)</option><option value='default' selected='selected'>Default</option></select></div><br><br><section><div class='flex'>";
+    var out = "<div class='input-group sort-filter pull-right sortplace'><span class='sort-title'><strong>Sort By</strong></span><select class='btn' name='sort' onchange='if (this.value) window.location.href=this.value'><option  value='index1.html' selected='selected'>Selling Price (Low > High)</option><option value='index2.html'>Selling Price (High > Low)</option><option value='index3.html'>Discount Rate (Low > High)</option><option value='index4.html'>Discount Rate (High > Low)</option><option value='index.html'>Default</option></select></div><br><br><section><div class='flex'>";
+    var allItems = sortJson(arr.items, 'selling_price', prop);  //sort
 
     for(i = 0; i < arr.items.length; i++) {
 
         out += "<div class='text-center shop-item'><div class='product-tag-holder'><span class='info-circle'>" + 
-        arr.items[i].discount_rate + "%</span></div><a href='http://hermo.my" + arr.items[i].url + "' >" + 
-        "<img class='img_wrapper' src='" + arr.items[i].images + "' alt='images'></a>" +
-        "<div style='padding: 10px;'> <strong class='brand_name'> <a href='http://hermo.my" +  arr.items[i].brand.url + "'>" + arr.items[i].brand.name + 
-        "</a></strong><p><a href='http://hermo.my" + arr.items[i].url + "'>" + arr.items[i].name + "</a></p></div>" +
-        "<div class='m-b-1'><strong>RM " + Number(arr.items[i].selling_price).toFixed(2) + "</strong><div><s class='small text-muted'>RM " + 
-        Number(arr.items[i].retail_price).toFixed(2) + "</s></div></div>" + "<a href='http://hermo.my" + arr.items[i].url + 
+        allItems[i].discount_rate + "%</span></div><a href='http://hermo.my" + allItems[i].url + "' >" + 
+        "<img class='img_wrapper' src='" + allItems[i].images + "' alt='images'></a>" +
+        "<div style='padding: 10px;'> <strong class='brand_name'> <a href='http://hermo.my" +  allItems[i].brand.url + "'>" + allItems[i].brand.name + 
+        "</a></strong><p><a href='http://hermo.my" + allItems[i].url + "'>" + allItems[i].name + "</a></p></div>" +
+        "<div class='m-b-1'><strong>RM " + Number(allItems[i].selling_price).toFixed(2) + "</strong><div><s class='small text-muted'>RM " + 
+        Number(allItems[i].retail_price).toFixed(2) + "</s></div></div>" + "<a href='http://hermo.my" + allItems[i].url + 
         "' class='btn btn-buy-now btn-sm'>SHOP NOW</a></div>";
     }
 
     out += "</div></section>";
     document.getElementById("myProductList").innerHTML = out;
-}
+    
 
+
+
+
+}
 </script>
 
 </body>
